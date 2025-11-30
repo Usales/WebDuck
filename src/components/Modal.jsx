@@ -48,7 +48,7 @@ const Modal = ({ visible, type = 'info', title, message, onClose, children }) =>
       onClick={onClose}
     >
       <div 
-        className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full p-6"
+        className={`bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full p-6 ${children ? 'max-w-2xl' : 'max-w-md'}`}
         style={{ 
           background: 'var(--panel-bg)',
           color: 'var(--text-primary)'
@@ -69,7 +69,7 @@ const Modal = ({ visible, type = 'info', title, message, onClose, children }) =>
           </p>
         )}
         {children}
-        {onClose && type !== 'loading' && (
+        {onClose && type !== 'loading' && !children && (
           <button
             onClick={onClose}
             className="mt-4 px-4 py-2 rounded-lg font-semibold transition-all"

@@ -14,35 +14,68 @@ import {
 // Inicializar dados no localStorage se não existirem
 const initMockData = () => {
   try {
+    // Sempre atualizar com os dados mais recentes do mockData
+    // Isso garante que novos usuários sejam adicionados e atualizações sejam aplicadas
     const existingUsers = localStorage.getItem('mockUsers');
-    if (!existingUsers) {
-      localStorage.setItem('mockUsers', JSON.stringify(mockUsers));
-    } else {
-      // Verificar se o usuário eaduck@example.com existe, se não, adicionar
-      const users = JSON.parse(existingUsers);
-      const eaduckUser = users.find(u => u.email === 'eaduck@example.com');
-      if (!eaduckUser) {
-        const newUser = {
-          id: Math.max(...users.map(u => u.id || 0), ...mockUsers.map(u => u.id)) + 1,
-          email: 'eaduck@example.com',
-          password: 'senha123',
-          name: 'EaDuck',
-          nomeCompleto: 'EaDuck Usuário',
-          cpf: '333.333.333-33',
-          role: 'STUDENT',
-          isActive: true,
-          dataNascimento: '2000-01-01',
-          nomeMae: 'Mãe Exemplo',
-          nomePai: 'Pai Exemplo',
-          telefone: '(11) 88888-8888',
-          endereco: 'Rua Exemplo, 456'
-        };
-        users.push(newUser);
-        localStorage.setItem('mockUsers', JSON.stringify(users));
-      }
+    let users = [];
+    
+    if (existingUsers) {
+      users = JSON.parse(existingUsers);
     }
-    if (!localStorage.getItem('mockClassrooms')) {
+    
+    // Criar um mapa de emails existentes para atualização
+    const emailMap = new Map();
+    users.forEach(user => {
+      emailMap.set(user.email, user);
+    });
+    
+    // Adicionar ou atualizar todos os usuários do mockData
+    mockUsers.forEach(mockUser => {
+      if (emailMap.has(mockUser.email)) {
+        // Atualizar usuário existente mantendo o ID original
+        const existingUser = emailMap.get(mockUser.email);
+        const index = users.findIndex(u => u.id === existingUser.id);
+        if (index !== -1) {
+          users[index] = { ...existingUser, ...mockUser, id: existingUser.id };
+        }
+      } else {
+        // Adicionar novo usuário
+        users.push(mockUser);
+      }
+    });
+    
+    // Garantir que os IDs sejam únicos e sequenciais
+    users = users.map((user, index) => ({
+      ...user,
+      id: user.id || (index + 1)
+    }));
+    
+    // Ordenar por ID
+    users.sort((a, b) => a.id - b.id);
+    
+    localStorage.setItem('mockUsers', JSON.stringify(users));
+    
+    // Inicializar salas
+    const existingClassrooms = localStorage.getItem('mockClassrooms');
+    if (!existingClassrooms) {
       localStorage.setItem('mockClassrooms', JSON.stringify(mockClassrooms));
+    } else {
+      // Atualizar salas se necessário
+      const classrooms = JSON.parse(existingClassrooms);
+      const emailMap = new Map();
+      classrooms.forEach(c => {
+        emailMap.set(c.name + c.academicYear, c);
+      });
+      
+      mockClassrooms.forEach(mockClassroom => {
+        const key = mockClassroom.name + mockClassroom.academicYear;
+        if (!emailMap.has(key)) {
+          classrooms.push(mockClassroom);
+        }
+      });
+      
+      classrooms.sort((a, b) => a.id - b.id);
+      localStorage.setItem('mockClassrooms', JSON.stringify(classrooms));
     }
     if (!localStorage.getItem('mockTasks')) {
       localStorage.setItem('mockTasks', JSON.stringify(mockTasks));
