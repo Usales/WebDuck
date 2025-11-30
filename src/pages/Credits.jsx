@@ -8,33 +8,33 @@ const Credits = () => {
       <MobileMenuButton />
       <div className="flex-1 ml-0 md:ml-64 p-4 md:p-8 pt-16 md:pt-28">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
-            <span className="material-icons">info</span>
+        <div className="mb-4 md:mb-8">
+          <h1 className="text-2xl md:text-3xl font-bold mb-2 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
+            <span className="material-icons text-2xl md:text-3xl">info</span>
             Créditos
           </h1>
-          <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+          <p className="text-xs md:text-sm" style={{ color: 'var(--text-secondary)' }}>
             Informações sobre o projeto e desenvolvedores
           </p>
         </div>
 
         {/* Main Content */}
-        <div className="max-w-4xl">
+        <div className="max-w-4xl mx-auto">
           {/* Project Card */}
-          <div className="rounded-xl shadow-lg p-8 mb-6" style={{ background: 'var(--panel-bg)' }}>
-            <div className="flex items-center gap-4 mb-6">
-              <div className="text-5xl">🦆</div>
-              <div>
-                <h2 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
+          <div className="rounded-xl shadow-lg p-4 md:p-6 lg:p-8 mb-4 md:mb-6" style={{ background: 'var(--panel-bg)' }}>
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3 md:gap-4 mb-4 md:mb-6">
+              <div className="text-4xl md:text-5xl">🦆</div>
+              <div className="text-center sm:text-left flex-1">
+                <h2 className="text-xl md:text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
                   EaDuck
                 </h2>
-                <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+                <p className="text-xs md:text-sm" style={{ color: 'var(--text-secondary)' }}>
                   Plataforma de Ensino a Distância
                 </p>
               </div>
             </div>
 
-            <p className="mb-6 leading-relaxed" style={{ color: 'var(--text-primary)' }}>
+            <p className="mb-4 md:mb-6 text-sm md:text-base leading-relaxed" style={{ color: 'var(--text-primary)' }}>
               O EaDuck é uma plataforma completa de gerenciamento educacional desenvolvida para facilitar 
               o aprendizado a distância. Com recursos modernos e intuitivos, oferece uma experiência completa 
               para estudantes, professores e administradores.
@@ -45,15 +45,16 @@ const Credits = () => {
               href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-6 py-3 rounded-lg font-semibold transition-all hover:transform hover:scale-105"
+              className="inline-flex items-center justify-center gap-2 md:gap-3 px-4 md:px-6 py-2.5 md:py-3 rounded-lg font-semibold text-sm md:text-base transition-all active:scale-95 md:hover:scale-105 w-full sm:w-auto"
               style={{
                 background: 'var(--button-bg)',
                 color: 'var(--button-text)',
-                textDecoration: 'none'
+                textDecoration: 'none',
+                minHeight: '44px'
               }}
             >
               <svg
-                className="w-6 h-6"
+                className="w-5 h-5 md:w-6 md:h-6"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
@@ -65,46 +66,46 @@ const Credits = () => {
           </div>
 
           {/* Team Section */}
-          <div className="rounded-xl shadow-lg p-8 mb-6" style={{ background: 'var(--panel-bg)' }}>
-            <h2 className="text-xl font-semibold mb-6 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
-              <span className="material-icons">people</span>
-              Equipe de Desenvolvimento
+          <div className="rounded-xl shadow-lg p-4 md:p-6 lg:p-8 mb-4 md:mb-6" style={{ background: 'var(--panel-bg)' }}>
+            <h2 className="text-lg md:text-xl font-semibold mb-4 md:mb-6 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
+              <span className="material-icons text-xl md:text-2xl">people</span>
+              <span>Equipe de Desenvolvimento</span>
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
               {/* Developer Card 1 - Gabriel Sales */}
               <div 
-                className="rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl hover:scale-105"
+                className="rounded-xl shadow-lg p-4 md:p-6 transition-all duration-300 md:hover:shadow-xl md:hover:scale-105"
                 style={{ 
                   background: 'var(--panel-bg)',
                   border: '1px solid var(--border-color)'
                 }}
               >
-                <div className="flex flex-col items-center gap-4 mb-4">
+                <div className="flex flex-col items-center gap-3 md:gap-4 mb-3 md:mb-4">
                   <img
                     src="/104046747.jpg"
                     alt="Gabriel Sales"
-                    className="w-24 h-24 rounded-full object-cover border-4 shadow-md"
+                    className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover border-4 shadow-md"
                     style={{ borderColor: 'var(--accent-color)' }}
                   />
                   <div className="text-center">
-                    <h3 className="text-lg font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
+                    <h3 className="text-base md:text-lg font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
                       Gabriel Sales
                     </h3>
-                    <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                    <p className="text-xs leading-relaxed px-2" style={{ color: 'var(--text-secondary)' }}>
                       Faculdade de Tecnologia SENAI de Desenvolvimento Gerencial
                     </p>
                   </div>
                 </div>
                 
-                <div className="border-t pt-4 mb-4" style={{ borderColor: 'var(--border-color)' }}>
-                  <div className="text-center mb-3">
+                <div className="border-t pt-3 md:pt-4 mb-3 md:mb-4" style={{ borderColor: 'var(--border-color)' }}>
+                  <div className="text-center mb-2 md:mb-3">
                     <p className="text-xs font-medium flex items-center justify-center gap-1" style={{ color: 'var(--text-secondary)' }}>
                       <span className="material-icons text-sm">location_on</span>
                       Coimbra, Portugal
                     </p>
                   </div>
-                  <p className="text-sm text-center leading-relaxed" style={{ color: 'var(--text-primary)' }}>
+                  <p className="text-xs md:text-sm text-center leading-relaxed break-words" style={{ color: 'var(--text-primary)' }}>
                     Desenvolvedor Fullstack | Engenheiro de Software | Suporte de TI | Analista de Sistemas
                   </p>
                 </div>
@@ -113,11 +114,12 @@ const Credits = () => {
                   href="https://github.com/Usales"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all hover:scale-105"
+                  className="flex items-center justify-center gap-2 px-4 py-2.5 md:py-2 rounded-lg font-semibold text-sm transition-all active:scale-95 md:hover:scale-105"
                   style={{ 
                     background: 'var(--button-bg)',
                     color: 'var(--button-text)',
-                    textDecoration: 'none'
+                    textDecoration: 'none',
+                    minHeight: '44px'
                   }}
                 >
                   <svg
@@ -134,37 +136,37 @@ const Credits = () => {
 
               {/* Developer Card 2 - Pedro Augusto */}
               <div 
-                className="rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl hover:scale-105"
+                className="rounded-xl shadow-lg p-4 md:p-6 transition-all duration-300 md:hover:shadow-xl md:hover:scale-105"
                 style={{ 
                   background: 'var(--panel-bg)',
                   border: '1px solid var(--border-color)'
                 }}
               >
-                <div className="flex flex-col items-center gap-4 mb-4">
+                <div className="flex flex-col items-center gap-3 md:gap-4 mb-3 md:mb-4">
                   <img
                     src="/81486320.jpg"
                     alt="Pedro Augusto"
-                    className="w-24 h-24 rounded-full object-cover border-4 shadow-md"
+                    className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover border-4 shadow-md"
                     style={{ borderColor: 'var(--accent-color)' }}
                   />
                   <div className="text-center">
-                    <h3 className="text-lg font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
+                    <h3 className="text-base md:text-lg font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
                       Pedro Augusto
                     </h3>
-                    <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                    <p className="text-xs leading-relaxed px-2" style={{ color: 'var(--text-secondary)' }}>
                       Faculdade de Tecnologia SENAI de Desenvolvimento Gerencial
                     </p>
                   </div>
                 </div>
                 
-                <div className="border-t pt-4 mb-4" style={{ borderColor: 'var(--border-color)' }}>
-                  <div className="text-center mb-3">
+                <div className="border-t pt-3 md:pt-4 mb-3 md:mb-4" style={{ borderColor: 'var(--border-color)' }}>
+                  <div className="text-center mb-2 md:mb-3">
                     <p className="text-xs font-medium flex items-center justify-center gap-1" style={{ color: 'var(--text-secondary)' }}>
                       <span className="material-icons text-sm">location_on</span>
                       Goiânia, Brasil
                     </p>
                   </div>
-                  <p className="text-sm text-center leading-relaxed" style={{ color: 'var(--text-primary)' }}>
+                  <p className="text-xs md:text-sm text-center leading-relaxed break-words" style={{ color: 'var(--text-primary)' }}>
                     Transformando ideias em código e código em soluções inovadoras
                   </p>
                 </div>
@@ -173,11 +175,12 @@ const Credits = () => {
                   href="https://github.com/PedroAugusto-sys"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all hover:scale-105"
+                  className="flex items-center justify-center gap-2 px-4 py-2.5 md:py-2 rounded-lg font-semibold text-sm transition-all active:scale-95 md:hover:scale-105"
                   style={{ 
                     background: 'var(--button-bg)',
                     color: 'var(--button-text)',
-                    textDecoration: 'none'
+                    textDecoration: 'none',
+                    minHeight: '44px'
                   }}
                 >
                   <svg
@@ -194,37 +197,37 @@ const Credits = () => {
 
               {/* Developer Card 3 - Aleardo Cartocci */}
               <div 
-                className="rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl hover:scale-105"
+                className="rounded-xl shadow-lg p-4 md:p-6 transition-all duration-300 md:hover:shadow-xl md:hover:scale-105"
                 style={{ 
                   background: 'var(--panel-bg)',
                   border: '1px solid var(--border-color)'
                 }}
               >
-                <div className="flex flex-col items-center gap-4 mb-4">
+                <div className="flex flex-col items-center gap-3 md:gap-4 mb-3 md:mb-4">
                   <img
                     src="/89143361.jpg"
                     alt="Aleardo Cartocci"
-                    className="w-24 h-24 rounded-full object-cover border-4 shadow-md"
+                    className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover border-4 shadow-md"
                     style={{ borderColor: 'var(--accent-color)' }}
                   />
                   <div className="text-center">
-                    <h3 className="text-lg font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
+                    <h3 className="text-base md:text-lg font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
                       Aleardo Cartocci
                     </h3>
-                    <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                    <p className="text-xs leading-relaxed px-2" style={{ color: 'var(--text-secondary)' }}>
                       Faculdade de Tecnologia SENAI de Desenvolvimento Gerencial
                     </p>
                   </div>
                 </div>
                 
-                <div className="border-t pt-4 mb-4" style={{ borderColor: 'var(--border-color)' }}>
-                  <div className="text-center mb-3">
+                <div className="border-t pt-3 md:pt-4 mb-3 md:mb-4" style={{ borderColor: 'var(--border-color)' }}>
+                  <div className="text-center mb-2 md:mb-3">
                     <p className="text-xs font-medium flex items-center justify-center gap-1" style={{ color: 'var(--text-secondary)' }}>
                       <span className="material-icons text-sm">location_on</span>
                       Goiânia, Brasil
                     </p>
                   </div>
-                  <p className="text-sm text-center leading-relaxed" style={{ color: 'var(--text-primary)' }}>
+                  <p className="text-xs md:text-sm text-center leading-relaxed break-words" style={{ color: 'var(--text-primary)' }}>
                     Documentação e Suporte Técnico da Plataforma
                   </p>
                 </div>
@@ -233,11 +236,12 @@ const Credits = () => {
                   href="https://github.com/Carttocci"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all hover:scale-105"
+                  className="flex items-center justify-center gap-2 px-4 py-2.5 md:py-2 rounded-lg font-semibold text-sm transition-all active:scale-95 md:hover:scale-105"
                   style={{ 
                     background: 'var(--button-bg)',
                     color: 'var(--button-text)',
-                    textDecoration: 'none'
+                    textDecoration: 'none',
+                    minHeight: '44px'
                   }}
                 >
                   <svg
@@ -255,13 +259,13 @@ const Credits = () => {
           </div>
 
           {/* Technologies Section */}
-          <div className="rounded-xl shadow-lg p-8" style={{ background: 'var(--panel-bg)' }}>
-            <h2 className="text-xl font-semibold mb-6 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
-              <span className="material-icons">code</span>
-              Tecnologias Utilizadas
+          <div className="rounded-xl shadow-lg p-4 md:p-6 lg:p-8" style={{ background: 'var(--panel-bg)' }}>
+            <h2 className="text-lg md:text-xl font-semibold mb-4 md:mb-6 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
+              <span className="material-icons text-xl md:text-2xl">code</span>
+              <span>Tecnologias Utilizadas</span>
             </h2>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
               {[
                 'React',
                 'Angular',
@@ -274,7 +278,7 @@ const Credits = () => {
               ].map((tech) => (
                 <div
                   key={tech}
-                  className="p-3 rounded-lg text-center font-medium"
+                  className="p-2 md:p-3 rounded-lg text-center font-medium text-xs md:text-sm"
                   style={{
                     background: 'var(--bg-secondary)',
                     color: 'var(--text-primary)'
