@@ -6,78 +6,17 @@ import ForgotPassword from './pages/ForgotPassword';
 import Home from './pages/Home';
 import Users from './pages/Users';
 import Classrooms from './pages/Classrooms';
+import Tasks from './pages/Tasks';
+import Notifications from './pages/Notifications';
+import Conversas from './pages/Conversas';
+import Attendance from './pages/Attendance';
+import Disciplines from './pages/Disciplines';
+import Settings from './pages/Settings';
+import Credits from './pages/Credits';
 import ProtectedRoute from './components/ProtectedRoute';
-import Sidebar from './components/Sidebar';
-import MobileMenuButton from './components/MobileMenuButton';
 // Garantir que os dados mockados sejam inicializados
 import './services/dataService';
 
-
-const Tasks = () => (
-  <div className="flex min-h-screen" style={{ background: 'var(--bg-primary)' }}>
-    <Sidebar />
-    <MobileMenuButton />
-    <div className="flex-1 ml-0 md:ml-64 p-4 md:p-8 pt-16 md:pt-28">
-      <h1 className="text-2xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>Tarefas</h1>
-      <p style={{ color: 'var(--text-secondary)' }}>Página de gerenciamento de tarefas (em desenvolvimento)</p>
-    </div>
-  </div>
-);
-
-const Notifications = () => (
-  <div className="flex min-h-screen" style={{ background: 'var(--bg-primary)' }}>
-    <Sidebar />
-    <MobileMenuButton />
-    <div className="flex-1 ml-0 md:ml-64 p-4 md:p-8 pt-16 md:pt-28">
-      <h1 className="text-2xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>Notificações</h1>
-      <p style={{ color: 'var(--text-secondary)' }}>Página de notificações (em desenvolvimento)</p>
-    </div>
-  </div>
-);
-
-const ChatHub = () => (
-  <div className="flex min-h-screen" style={{ background: 'var(--bg-primary)' }}>
-    <Sidebar />
-    <MobileMenuButton />
-    <div className="flex-1 ml-0 md:ml-64 p-4 md:p-8 pt-16 md:pt-28">
-      <h1 className="text-2xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>Conversas</h1>
-      <p style={{ color: 'var(--text-secondary)' }}>Página de chat (em desenvolvimento)</p>
-    </div>
-  </div>
-);
-
-const Attendance = () => (
-  <div className="flex min-h-screen" style={{ background: 'var(--bg-primary)' }}>
-    <Sidebar />
-    <MobileMenuButton />
-    <div className="flex-1 ml-0 md:ml-64 p-4 md:p-8 pt-16 md:pt-28">
-      <h1 className="text-2xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>Frequência</h1>
-      <p style={{ color: 'var(--text-secondary)' }}>Página de frequência (em desenvolvimento)</p>
-    </div>
-  </div>
-);
-
-const Disciplines = () => (
-  <div className="flex min-h-screen" style={{ background: 'var(--bg-primary)' }}>
-    <Sidebar />
-    <MobileMenuButton />
-    <div className="flex-1 ml-0 md:ml-64 p-4 md:p-8 pt-16 md:pt-28">
-      <h1 className="text-2xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>Disciplinas</h1>
-      <p style={{ color: 'var(--text-secondary)' }}>Página de disciplinas (em desenvolvimento)</p>
-    </div>
-  </div>
-);
-
-const Settings = () => (
-  <div className="flex min-h-screen" style={{ background: 'var(--bg-primary)' }}>
-    <Sidebar />
-    <MobileMenuButton />
-    <div className="flex-1 ml-0 md:ml-64 p-4 md:p-8 pt-16 md:pt-28">
-      <h1 className="text-2xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>Configurações</h1>
-      <p style={{ color: 'var(--text-secondary)' }}>Página de configurações (em desenvolvimento)</p>
-    </div>
-  </div>
-);
 
 function App() {
   useEffect(() => {
@@ -139,7 +78,7 @@ function App() {
           path="/chat-hub"
           element={
             <ProtectedRoute>
-              <ChatHub />
+              <Conversas />
             </ProtectedRoute>
           }
         />
@@ -164,6 +103,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Settings />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/credits"
+          element={
+            <ProtectedRoute>
+              <Credits />
             </ProtectedRoute>
           }
         />

@@ -49,7 +49,8 @@ const Sidebar = () => {
     { path: '/notifications', icon: 'notifications', label: 'Notificações' },
     { path: '/tasks', icon: 'assignment', label: 'Tarefas' },
     { path: '/chat-hub', icon: 'chat', label: 'Conversas' },
-    { path: '/settings', icon: 'settings', label: 'Configurações' }
+    { path: '/settings', icon: 'settings', label: 'Configurações' },
+    { path: '/credits', icon: 'info', label: 'Créditos' }
   ];
 
   // Mostrar todas as opções do menu (demonstração)
