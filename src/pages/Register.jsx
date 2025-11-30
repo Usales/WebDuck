@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { authService } from '../services/authService';
 import Modal from '../components/Modal';
@@ -16,7 +16,17 @@ const Register = () => {
   const [modalTitle, setModalTitle] = useState('');
   const [modalMessage, setModalMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const duckLogoRef = useRef(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Animação do pato
+    setTimeout(() => {
+      if (duckLogoRef.current) {
+        duckLogoRef.current.classList.add('continuous-bounce');
+      }
+    }, 1500);
+  }, []);
 
   const showModal = (type, title, message) => {
     setModalType(type);
@@ -90,6 +100,17 @@ const Register = () => {
         style={{ background: 'var(--panel-bg)' }}
       >
         <div className="mb-6 flex flex-col items-center mt-8">
+          <div className="mb-4 duck-container">
+            <img 
+              ref={duckLogoRef}
+              src="/favicon.png" 
+              alt="EaDuck Logo" 
+              className="w-16 h-16 duck-animation"
+              onError={(e) => {
+                e.target.style.display = 'none';
+              }}
+            />
+          </div>
           <h1 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
             Criar Conta
           </h1>

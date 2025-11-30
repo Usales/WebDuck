@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from '../components/Modal';
 import ThemeToggle from '../components/ThemeToggle';
@@ -7,6 +7,16 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const duckLogoRef = useRef(null);
+
+  useEffect(() => {
+    // Animação do pato
+    setTimeout(() => {
+      if (duckLogoRef.current) {
+        duckLogoRef.current.classList.add('continuous-bounce');
+      }
+    }, 1500);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,6 +48,17 @@ const ForgotPassword = () => {
         style={{ background: 'var(--panel-bg)' }}
       >
         <div className="mb-6 flex flex-col items-center mt-8">
+          <div className="mb-4 duck-container">
+            <img 
+              ref={duckLogoRef}
+              src="/favicon.png" 
+              alt="EaDuck Logo" 
+              className="w-16 h-16 duck-animation"
+              onError={(e) => {
+                e.target.style.display = 'none';
+              }}
+            />
+          </div>
           <h1 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
             Recuperar Senha
           </h1>
