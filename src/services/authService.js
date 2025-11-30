@@ -1,29 +1,49 @@
 // Serviço de autenticação simulado
 
+import { mockUsers } from './mockData.js';
+
 const STORAGE_KEY = 'eaduck_user';
 const STORAGE_TOKEN = 'eaduck_token';
 
+// Garantir que os dados mockados sejam inicializados
+if (typeof window !== 'undefined') {
+  if (!localStorage.getItem('mockUsers')) {
+    localStorage.setItem('mockUsers', JSON.stringify(mockUsers));
+  }
+}
+
 export const authService = {
-  // Simular login
+  // Simular login - aceita qualquer senha
   login(email, password) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        const users = JSON.parse(localStorage.getItem('mockUsers') || '[]');
-        const user = users.find(u => u.email === email && u.password === password);
-        
-        if (user && user.isActive) {
-          const token = `mock_token_${user.id}_${Date.now()}`;
-          const userData = { ...user };
-          delete userData.password;
+        try {
+          // Garantir que os dados mockados estejam inicializados
+          if (!localStorage.getItem('mockUsers')) {
+            localStorage.setItem('mockUsers', JSON.stringify(mockUsers));
+          }
           
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
-          localStorage.setItem(STORAGE_TOKEN, token);
+          const users = JSON.parse(localStorage.getItem('mockUsers') || '[]');
+          const user = users.find(u => u.email === email);
           
-          resolve({ user: userData, token });
-        } else if (user && !user.isActive) {
-          reject({ status: 401, message: 'Usuário inativo' });
-        } else {
-          reject({ status: 401, message: 'E-mail ou senha incorretos' });
+          if (user && user.isActive) {
+            // Aceita qualquer senha - apenas verifica se o email existe
+            const token = `mock_token_${user.id}_${Date.now()}`;
+            const userData = { ...user };
+            delete userData.password;
+            
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
+            localStorage.setItem(STORAGE_TOKEN, token);
+            
+            resolve({ user: userData, token });
+          } else if (user && !user.isActive) {
+            reject({ status: 401, message: 'Usuário inativo' });
+          } else {
+            reject({ status: 401, message: 'E-mail não encontrado. Verifique se o e-mail está correto ou crie uma conta.' });
+          }
+        } catch (error) {
+          console.error('Erro no login:', error);
+          reject({ status: 500, message: 'Erro ao processar login. Tente novamente.' });
         }
       }, 500);
     });
@@ -41,8 +61,10 @@ export const authService = {
           return;
         }
         
+        // Garantir que o ID seja único
+        const maxId = users.length > 0 ? Math.max(...users.map(u => u.id || 0)) : 0;
         const newUser = {
-          id: users.length + 1,
+          id: maxId + 1,
           ...userData,
           isActive: true,
           role: userData.role || 'STUDENT'

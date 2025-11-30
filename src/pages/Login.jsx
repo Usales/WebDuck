@@ -5,8 +5,8 @@ import Modal from '../components/Modal';
 import ThemeToggle from '../components/ThemeToggle';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('eaduck@example.com');
+  const [password, setPassword] = useState('1234');
   const [showPassword, setShowPassword] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalType, setModalType] = useState('info');
@@ -59,18 +59,19 @@ const Login = () => {
     showModal('loading', '', 'Autenticando...');
 
     try {
-      await authService.login(email, password);
+      const result = await authService.login(email, password);
+      setLoading(false);
       closeModal();
       navigate('/home');
     } catch (err) {
       setLoading(false);
-      let message = 'E-mail ou senha incorretos.';
+      let message = err.message || 'E-mail não encontrado.';
       
       if (err.status === 401) {
         if (err.message?.toLowerCase().includes('inativo')) {
           message = 'Sua conta está inativa. Entre em contato com o administrador.';
         } else {
-          message = 'E-mail ou senha incorretos.';
+          message = err.message || 'E-mail não encontrado.';
         }
       } else if (err.status === 0) {
         message = 'Não foi possível conectar ao servidor.';
@@ -134,9 +135,11 @@ const Login = () => {
                 style={{
                   background: 'var(--input-bg)',
                   color: 'var(--input-text)',
-                  border: '1px solid var(--input-border)'
+                  border: '1px solid var(--input-border)',
+                  fontWeight: 300,
+                  fontStyle: 'italic'
                 }}
-                placeholder="seu@email.com"
+                placeholder="eaduck@example.com"
                 required
                 autoComplete="off"
               />

@@ -13,33 +13,64 @@ import {
 
 // Inicializar dados no localStorage se não existirem
 const initMockData = () => {
-  if (!localStorage.getItem('mockUsers')) {
-    localStorage.setItem('mockUsers', JSON.stringify(mockUsers));
-  }
-  if (!localStorage.getItem('mockClassrooms')) {
-    localStorage.setItem('mockClassrooms', JSON.stringify(mockClassrooms));
-  }
-  if (!localStorage.getItem('mockTasks')) {
-    localStorage.setItem('mockTasks', JSON.stringify(mockTasks));
-  }
-  if (!localStorage.getItem('mockSubmissions')) {
-    localStorage.setItem('mockSubmissions', JSON.stringify(mockSubmissions));
-  }
-  if (!localStorage.getItem('mockNotifications')) {
-    localStorage.setItem('mockNotifications', JSON.stringify(mockNotifications));
-  }
-  if (!localStorage.getItem('mockDisciplines')) {
-    localStorage.setItem('mockDisciplines', JSON.stringify(mockDisciplines));
-  }
-  if (!localStorage.getItem('mockAttendance')) {
-    localStorage.setItem('mockAttendance', JSON.stringify(mockAttendance));
-  }
-  if (!localStorage.getItem('mockChatMessages')) {
-    localStorage.setItem('mockChatMessages', JSON.stringify(mockChatMessages));
+  try {
+    const existingUsers = localStorage.getItem('mockUsers');
+    if (!existingUsers) {
+      localStorage.setItem('mockUsers', JSON.stringify(mockUsers));
+    } else {
+      // Verificar se o usuário eaduck@example.com existe, se não, adicionar
+      const users = JSON.parse(existingUsers);
+      const eaduckUser = users.find(u => u.email === 'eaduck@example.com');
+      if (!eaduckUser) {
+        const newUser = {
+          id: Math.max(...users.map(u => u.id || 0), ...mockUsers.map(u => u.id)) + 1,
+          email: 'eaduck@example.com',
+          password: 'senha123',
+          name: 'EaDuck',
+          nomeCompleto: 'EaDuck Usuário',
+          cpf: '333.333.333-33',
+          role: 'STUDENT',
+          isActive: true,
+          dataNascimento: '2000-01-01',
+          nomeMae: 'Mãe Exemplo',
+          nomePai: 'Pai Exemplo',
+          telefone: '(11) 88888-8888',
+          endereco: 'Rua Exemplo, 456'
+        };
+        users.push(newUser);
+        localStorage.setItem('mockUsers', JSON.stringify(users));
+      }
+    }
+    if (!localStorage.getItem('mockClassrooms')) {
+      localStorage.setItem('mockClassrooms', JSON.stringify(mockClassrooms));
+    }
+    if (!localStorage.getItem('mockTasks')) {
+      localStorage.setItem('mockTasks', JSON.stringify(mockTasks));
+    }
+    if (!localStorage.getItem('mockSubmissions')) {
+      localStorage.setItem('mockSubmissions', JSON.stringify(mockSubmissions));
+    }
+    if (!localStorage.getItem('mockNotifications')) {
+      localStorage.setItem('mockNotifications', JSON.stringify(mockNotifications));
+    }
+    if (!localStorage.getItem('mockDisciplines')) {
+      localStorage.setItem('mockDisciplines', JSON.stringify(mockDisciplines));
+    }
+    if (!localStorage.getItem('mockAttendance')) {
+      localStorage.setItem('mockAttendance', JSON.stringify(mockAttendance));
+    }
+    if (!localStorage.getItem('mockChatMessages')) {
+      localStorage.setItem('mockChatMessages', JSON.stringify(mockChatMessages));
+    }
+  } catch (error) {
+    console.error('Erro ao inicializar dados mockados:', error);
   }
 };
 
-initMockData();
+// Inicializar imediatamente
+if (typeof window !== 'undefined') {
+  initMockData();
+}
 
 export const dataService = {
   // Usuários

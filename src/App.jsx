@@ -7,18 +7,8 @@ import Home from './pages/Home';
 import ProtectedRoute from './components/ProtectedRoute';
 import Sidebar from './components/Sidebar';
 import MobileMenuButton from './components/MobileMenuButton';
-
-// Placeholder pages
-const Users = () => (
-  <div className="flex min-h-screen" style={{ background: 'var(--bg-primary)' }}>
-    <Sidebar />
-    <MobileMenuButton />
-    <div className="flex-1 ml-0 md:ml-64 p-4 md:p-8 pt-16 md:pt-28">
-      <h1 className="text-2xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>Usuários</h1>
-      <p style={{ color: 'var(--text-secondary)' }}>Página de gerenciamento de usuários (em desenvolvimento)</p>
-    </div>
-  </div>
-);
+// Garantir que os dados mockados sejam inicializados
+import './services/dataService';
 
 // Placeholder pages
 const Users = () => (

@@ -9,8 +9,7 @@ const Register = () => {
     email: '',
     password: '',
     confirmPassword: '',
-    name: '',
-    role: 'STUDENT'
+    name: ''
   });
   const [modalVisible, setModalVisible] = useState(false);
   const [modalType, setModalType] = useState('info');
@@ -50,11 +49,6 @@ const Register = () => {
       return;
     }
 
-    if (formData.password.length < 6) {
-      showModal('error', 'Erro', 'A senha deve ter pelo menos 6 caracteres.');
-      return;
-    }
-
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       showModal('error', 'Erro', 'Por favor, insira um e-mail válido.');
@@ -69,7 +63,7 @@ const Register = () => {
         email: formData.email,
         password: formData.password,
         name: formData.name,
-        role: formData.role
+        role: 'STUDENT' // Apenas alunos podem se registrar
       });
       closeModal();
       showModal('success', 'Sucesso', 'Conta criada com sucesso! Redirecionando...');
@@ -143,27 +137,6 @@ const Register = () => {
               }}
               required
             />
-          </div>
-
-          <div className="mb-4">
-            <label htmlFor="role" className="block mb-1" style={{ color: 'var(--text-secondary)' }}>
-              Tipo de Conta
-            </label>
-            <select
-              id="role"
-              name="role"
-              value={formData.role}
-              onChange={handleChange}
-              className="w-full px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none"
-              style={{
-                background: 'var(--input-bg)',
-                color: 'var(--input-text)',
-                border: '1px solid var(--input-border)'
-              }}
-            >
-              <option value="STUDENT">Estudante</option>
-              <option value="TEACHER">Professor</option>
-            </select>
           </div>
 
           <div className="mb-4">

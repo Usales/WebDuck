@@ -36,6 +36,21 @@ export const mockUsers = [
     nomePai: 'Carlos Santos',
     telefone: '(11) 99999-9999',
     endereco: 'Rua Exemplo, 123'
+  },
+  {
+    id: 4,
+    email: 'eaduck@example.com',
+    password: 'senha123',
+    name: 'EaDuck',
+    nomeCompleto: 'EaDuck Usuário',
+    cpf: '333.333.333-33',
+    role: 'STUDENT',
+    isActive: true,
+    dataNascimento: '2000-01-01',
+    nomeMae: 'Mãe Exemplo',
+    nomePai: 'Pai Exemplo',
+    telefone: '(11) 88888-8888',
+    endereco: 'Rua Exemplo, 456'
   }
 ];
 

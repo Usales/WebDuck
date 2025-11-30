@@ -41,20 +41,19 @@ const Sidebar = () => {
   const isActive = (path) => location.pathname === path;
 
   const menuItems = [
-    { path: '/home', icon: 'dashboard', label: 'Home', roles: ['ADMIN', 'TEACHER', 'STUDENT'] },
-    { path: '/users', icon: 'people', label: 'Usuários', roles: ['ADMIN'] },
-    { path: '/classrooms', icon: 'school', label: 'Salas', roles: ['ADMIN', 'TEACHER', 'STUDENT'] },
-    { path: '/attendance', icon: 'check_circle', label: 'Frequência', roles: ['ADMIN', 'TEACHER'] },
-    { path: '/disciplines', icon: 'menu_book', label: 'Disciplinas', roles: ['ADMIN', 'TEACHER'] },
-    { path: '/notifications', icon: 'notifications', label: 'Notificações', roles: ['ADMIN', 'TEACHER', 'STUDENT'] },
-    { path: '/tasks', icon: 'assignment', label: 'Tarefas', roles: ['ADMIN', 'TEACHER', 'STUDENT'] },
-    { path: '/chat-hub', icon: 'chat', label: 'Conversas', roles: ['ADMIN', 'TEACHER', 'STUDENT'] },
-    { path: '/settings', icon: 'settings', label: 'Configurações', roles: ['ADMIN', 'TEACHER', 'STUDENT'] }
+    { path: '/home', icon: 'dashboard', label: 'Home' },
+    { path: '/users', icon: 'people', label: 'Usuários' },
+    { path: '/classrooms', icon: 'school', label: 'Salas' },
+    { path: '/attendance', icon: 'check_circle', label: 'Frequência' },
+    { path: '/disciplines', icon: 'menu_book', label: 'Disciplinas' },
+    { path: '/notifications', icon: 'notifications', label: 'Notificações' },
+    { path: '/tasks', icon: 'assignment', label: 'Tarefas' },
+    { path: '/chat-hub', icon: 'chat', label: 'Conversas' },
+    { path: '/settings', icon: 'settings', label: 'Configurações' }
   ];
 
-  const visibleItems = menuItems.filter(item => 
-    currentUser && item.roles.includes(currentUser.role)
-  );
+  // Mostrar todas as opções do menu (demonstração)
+  const visibleItems = menuItems;
 
   // Expor toggleSidebar globalmente para uso em outras páginas
   useEffect(() => {
