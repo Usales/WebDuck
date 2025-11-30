@@ -189,29 +189,29 @@ const Users = () => {
     <div className="flex min-h-screen" style={{ background: 'var(--bg-primary)' }}>
       <Sidebar />
       <MobileMenuButton />
-      <div className="flex-1 ml-0 md:ml-64 p-4 md:p-8 pt-16 md:pt-28">
-        <div className="mb-6">
-          <div className="flex justify-between items-center mb-4 flex-wrap gap-2">
-            <h1 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
+      <div className="flex-1 ml-0 md:ml-64 p-3 md:p-4 lg:p-8 pt-16 md:pt-28">
+        <div className="mb-4 md:mb-6">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 md:mb-4 gap-3">
+            <h1 className="text-xl md:text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
               Usuários
             </h1>
-            <div className="flex gap-2">
+            <div className="flex gap-2 w-full sm:w-auto">
               <button
                 onClick={() => {
                   localStorage.removeItem('mockUsers');
                   loadData();
                 }}
-                className="px-4 py-2 rounded-lg font-semibold transition-all text-sm"
+                className="flex-1 sm:flex-none px-3 md:px-4 py-2 rounded-lg font-semibold transition-all text-xs md:text-sm min-h-[44px]"
                 style={{
                   background: 'var(--error-color)',
                   color: 'white'
                 }}
               >
-                Recarregar Dados
+                Recarregar
               </button>
               <button
                 onClick={loadUsers}
-                className="px-4 py-2 rounded-lg font-semibold transition-all text-sm"
+                className="flex-1 sm:flex-none px-3 md:px-4 py-2 rounded-lg font-semibold transition-all text-xs md:text-sm min-h-[44px]"
                 style={{
                   background: 'var(--button-bg)',
                   color: 'var(--button-text)'
@@ -223,13 +223,13 @@ const Users = () => {
           </div>
           
           {/* Filtros */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 mb-3 md:mb-4">
             <input
               type="text"
               placeholder="Buscar por nome, email..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none"
+              className="px-4 py-2.5 md:py-2 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none text-sm md:text-base min-h-[44px]"
               style={{
                 background: 'var(--input-bg)',
                 color: 'var(--input-text)',
@@ -239,7 +239,7 @@ const Users = () => {
             <select
               value={filterRole}
               onChange={(e) => setFilterRole(e.target.value)}
-              className="px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none"
+              className="px-4 py-2.5 md:py-2 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none text-sm md:text-base min-h-[44px]"
               style={{
                 background: 'var(--input-bg)',
                 color: 'var(--input-text)',
@@ -255,7 +255,7 @@ const Users = () => {
             <select
               value={filterClassroom}
               onChange={(e) => setFilterClassroom(e.target.value)}
-              className="px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none"
+              className="px-4 py-2.5 md:py-2 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none text-sm md:text-base min-h-[44px]"
               style={{
                 background: 'var(--input-bg)',
                 color: 'var(--input-text)',
@@ -271,33 +271,108 @@ const Users = () => {
             </select>
           </div>
 
-          <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+          <p className="text-xs md:text-sm" style={{ color: 'var(--text-secondary)' }}>
             Total: {filteredUsers.length} usuário(s)
           </p>
         </div>
 
-        {/* Tabela de usuários */}
+        {/* Cards de usuários (Mobile) */}
+        <div className="md:hidden space-y-3">
+          {filteredUsers.length === 0 ? (
+            <div className="p-6 text-center rounded-xl shadow-lg" style={{ background: 'var(--panel-bg)' }}>
+              <p style={{ color: 'var(--text-secondary)' }}>Nenhum usuário encontrado</p>
+            </div>
+          ) : (
+            filteredUsers.map((user) => (
+              <div
+                key={user.id}
+                className="rounded-xl shadow-lg p-4"
+                style={{ background: 'var(--panel-bg)' }}
+              >
+                <div className="flex items-start justify-between mb-3">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="text-base font-semibold truncate" style={{ color: 'var(--text-primary)' }}>
+                        {user.nomeCompleto || user.name || 'Sem nome'}
+                      </h3>
+                      {isStarredUser(user.email) && (
+                        <span className="text-yellow-400 text-lg flex-shrink-0" title="Usuário destacado">
+                          ⭐
+                        </span>
+                      )}
+                    </div>
+                    {user.nomeCompleto && user.name !== user.nomeCompleto && (
+                      <p className="text-xs mb-1 truncate" style={{ color: 'var(--text-secondary)' }}>
+                        {user.name}
+                      </p>
+                    )}
+                    <p className="text-xs truncate mb-2" style={{ color: 'var(--text-secondary)' }}>
+                      {user.email}
+                    </p>
+                  </div>
+                  {!isStarredUser(user.email) && (
+                    <button
+                      onClick={() => handleEdit(user)}
+                      className="p-2 rounded-lg transition-colors flex-shrink-0 min-h-[44px] min-w-[44px] flex items-center justify-center"
+                      style={{ 
+                        color: 'var(--accent-color)',
+                        background: 'var(--bg-secondary)'
+                      }}
+                      title="Editar usuário"
+                    >
+                      <span className="material-icons">edit</span>
+                    </button>
+                  )}
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium text-white ${getRoleColor(user.role)}`}>
+                    {getRoleLabel(user.role)}
+                  </span>
+                  {isStarredUser(user.email) ? (
+                    <div className="flex items-center">
+                      <AnimatedText 
+                        text="DEV" 
+                        speed={60}
+                        className="text-green-500 text-xs"
+                      />
+                    </div>
+                  ) : (
+                    <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${
+                      user.isActive 
+                        ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' 
+                        : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+                    }`}>
+                      {user.isActive ? 'Ativo' : 'Inativo'}
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+
+        {/* Tabela de usuários (Desktop) */}
         <div 
-          className="rounded-xl shadow-lg overflow-hidden"
+          className="hidden md:block rounded-xl shadow-lg overflow-hidden"
           style={{ background: 'var(--panel-bg)' }}
         >
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr style={{ borderBottom: '1px solid var(--border-color)' }}>
-                  <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
+                  <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
                     Ações
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
+                  <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
                     Nome
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
+                  <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
                     Email
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
+                  <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
                     Tipo
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
+                  <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
                     Status
                   </th>
                 </tr>
@@ -312,11 +387,11 @@ const Users = () => {
                 ) : (
                   filteredUsers.map((user) => (
                     <tr key={user.id} className="hover:bg-opacity-50" style={{ backgroundColor: 'transparent' }}>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-4 lg:px-6 py-4 whitespace-nowrap">
                         {!isStarredUser(user.email) && (
                           <button
                             onClick={() => handleEdit(user)}
-                            className="p-2 rounded-lg hover:bg-gray-700 transition-colors"
+                            className="p-2 rounded-lg hover:bg-gray-700 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                             style={{ color: 'var(--accent-color)' }}
                             title="Editar usuário"
                           >
@@ -324,7 +399,7 @@ const Users = () => {
                           </button>
                         )}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-4 lg:px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center gap-1">
                           <div>
                             <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
@@ -343,17 +418,17 @@ const Users = () => {
                           )}
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-4 lg:px-6 py-4 whitespace-nowrap">
                         <div className="text-sm" style={{ color: 'var(--text-primary)' }}>
                           {user.email}
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-4 lg:px-6 py-4 whitespace-nowrap">
                         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white ${getRoleColor(user.role)}`}>
                           {getRoleLabel(user.role)}
                         </span>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-4 lg:px-6 py-4 whitespace-nowrap">
                         {isStarredUser(user.email) ? (
                           <div className="flex items-center">
                             <AnimatedText 

@@ -291,9 +291,11 @@ const Conversas = () => {
       <div className="flex-1 ml-0 md:ml-64 flex flex-col h-screen pt-16 md:pt-0">
         <div className="flex flex-1 overflow-hidden">
           {/* Lista de Turmas */}
-          <div className="w-full md:w-80 border-r flex flex-col" style={{ borderColor: 'var(--border-color)', background: 'var(--panel-bg)' }}>
-            <div className="p-4 border-b" style={{ borderColor: 'var(--border-color)' }}>
-              <h2 className="text-xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
+          <div className={`w-full md:w-80 border-r flex flex-col transition-transform duration-300 ${
+            selectedClassroom ? 'hidden md:flex' : 'flex'
+          }`} style={{ borderColor: 'var(--border-color)', background: 'var(--panel-bg)' }}>
+            <div className="p-3 md:p-4 border-b" style={{ borderColor: 'var(--border-color)' }}>
+              <h2 className="text-lg md:text-xl font-bold mb-3 md:mb-4" style={{ color: 'var(--text-primary)' }}>
                 Conversas
               </h2>
               <input
@@ -301,7 +303,7 @@ const Conversas = () => {
                 placeholder="Buscar turma..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none"
+                className="w-full px-4 py-2.5 md:py-2 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none text-sm md:text-base min-h-[44px]"
                 style={{
                   background: 'var(--input-bg)',
                   color: 'var(--input-text)',
@@ -322,10 +324,10 @@ const Conversas = () => {
                       <button
                         key={classroom.id}
                         onClick={() => setSelectedClassroom(classroom)}
-                        className={`w-full text-left p-3 rounded-lg mb-2 transition-all relative ${
+                        className={`w-full text-left p-3 rounded-lg mb-2 transition-all relative min-h-[60px] ${
                           selectedClassroom?.id === classroom.id
                             ? 'bg-blue-600 text-white'
-                            : 'hover:bg-gray-700'
+                            : 'hover:bg-gray-700 active:scale-95'
                         }`}
                         style={
                           selectedClassroom?.id !== classroom.id
@@ -333,19 +335,19 @@ const Conversas = () => {
                             : {}
                         }
                       >
-                        <div className="flex items-center gap-3">
-                          <span className="material-icons text-2xl">
+                        <div className="flex items-center gap-2 md:gap-3">
+                          <span className="material-icons text-xl md:text-2xl flex-shrink-0">
                             {selectedClassroom?.id === classroom.id ? 'chat' : 'chat_bubble_outline'}
                           </span>
                           <div className="flex-1 min-w-0">
-                            <div className="font-semibold truncate">{classroom.name}</div>
-                            <div className="text-sm opacity-75 truncate">
+                            <div className="font-semibold truncate text-sm md:text-base">{classroom.name}</div>
+                            <div className="text-xs md:text-sm opacity-75 truncate">
                               {classroom.academicYear}
                             </div>
                           </div>
                           {unreadCount > 0 && (
                             <div 
-                              className="flex items-center justify-center min-w-[24px] h-6 px-2 rounded-full text-xs font-bold text-white animate-pulse"
+                              className="flex items-center justify-center min-w-[24px] h-6 px-2 rounded-full text-xs font-bold text-white animate-pulse flex-shrink-0"
                               style={{ background: '#ef4444' }}
                             >
                               {unreadCount > 99 ? '99+' : unreadCount}
@@ -361,36 +363,43 @@ const Conversas = () => {
           </div>
 
           {/* Área de Chat */}
-          <div className="flex-1 flex flex-col" style={{ background: 'var(--bg-primary)' }}>
+          <div className={`flex-1 flex flex-col transition-transform duration-300 ${
+            selectedClassroom ? 'flex' : 'hidden md:flex'
+          }`} style={{ background: 'var(--bg-primary)' }}>
             {selectedClassroom ? (
               <>
                 {/* Header do Chat */}
-                <div className="p-4 border-b flex items-center justify-between" style={{ borderColor: 'var(--border-color)', background: 'var(--panel-bg)' }}>
-                  <div>
-                    <h3 className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>
-                      {selectedClassroom.name}
-                    </h3>
-                    <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-                      {selectedClassroom.academicYear}
-                    </p>
+                <div className="p-3 md:p-4 border-b flex items-center justify-between" style={{ borderColor: 'var(--border-color)', background: 'var(--panel-bg)' }}>
+                  <div className="flex items-center gap-3 flex-1 min-w-0">
+                    <button
+                      onClick={() => setSelectedClassroom(null)}
+                      className="md:hidden p-2 rounded-lg transition-colors flex-shrink-0 min-h-[44px] min-w-[44px] flex items-center justify-center"
+                      style={{ 
+                        color: 'var(--text-primary)',
+                        background: 'var(--bg-secondary)'
+                      }}
+                    >
+                      <span className="material-icons">arrow_back</span>
+                    </button>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-base md:text-lg font-bold truncate" style={{ color: 'var(--text-primary)' }}>
+                        {selectedClassroom.name}
+                      </h3>
+                      <p className="text-xs md:text-sm truncate" style={{ color: 'var(--text-secondary)' }}>
+                        {selectedClassroom.academicYear}
+                      </p>
+                    </div>
                   </div>
-                  <button
-                    onClick={() => setSelectedClassroom(null)}
-                    className="md:hidden p-2 rounded-lg hover:bg-gray-700"
-                    style={{ color: 'var(--text-primary)' }}
-                  >
-                    <span className="material-icons">close</span>
-                  </button>
                 </div>
 
                 {/* Mensagens */}
-                <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                <div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-3 md:space-y-4">
                   {visibleMessages.length === 0 ? (
                     <div className="flex items-center justify-center h-full">
-                      <div className="text-center" style={{ color: 'var(--text-secondary)' }}>
-                        <span className="material-icons text-6xl mb-4 opacity-50">chat_bubble_outline</span>
-                        <p>Nenhuma mensagem ainda</p>
-                        <p className="text-sm mt-2">Seja o primeiro a enviar uma mensagem!</p>
+                      <div className="text-center px-4" style={{ color: 'var(--text-secondary)' }}>
+                        <span className="material-icons text-4xl md:text-6xl mb-4 opacity-50 block">chat_bubble_outline</span>
+                        <p className="text-sm md:text-base">Nenhuma mensagem ainda</p>
+                        <p className="text-xs md:text-sm mt-2">Seja o primeiro a enviar uma mensagem!</p>
                       </div>
                     </div>
                   ) : (
@@ -406,7 +415,7 @@ const Conversas = () => {
                           className={`flex ${message.isMine ? 'justify-end' : 'justify-start'} animate-slide-in`}
                         >
                           <div
-                            className={`max-w-xs md:max-w-md lg:max-w-lg px-4 py-2 rounded-lg transition-all ${
+                            className={`max-w-[85%] sm:max-w-xs md:max-w-md lg:max-w-lg px-3 md:px-4 py-2 rounded-lg transition-all ${
                               message.isMine
                                 ? 'bg-blue-600 text-white'
                                 : 'bg-gray-700 text-white'
@@ -418,7 +427,7 @@ const Conversas = () => {
                             }
                           >
                             {!message.isMine && (
-                              <div className="text-xs font-semibold mb-1 opacity-75">
+                              <div className="text-xs font-semibold mb-1 opacity-75 truncate">
                                 {message.senderName || message.sender || message.senderEmail}
                               </div>
                             )}
@@ -437,14 +446,14 @@ const Conversas = () => {
                 </div>
 
                 {/* Input de Mensagem */}
-                <div className="p-4 border-t" style={{ borderColor: 'var(--border-color)', background: 'var(--panel-bg)' }}>
+                <div className="p-3 md:p-4 border-t" style={{ borderColor: 'var(--border-color)', background: 'var(--panel-bg)' }}>
                   <form onSubmit={handleSendMessage} className="flex gap-2">
                     <input
                       type="text"
                       value={newMessage}
                       onChange={(e) => setNewMessage(e.target.value)}
                       placeholder="Digite sua mensagem..."
-                      className="flex-1 px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none"
+                      className="flex-1 px-4 py-2.5 md:py-2 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none text-sm md:text-base min-h-[44px]"
                       style={{
                         background: 'var(--input-bg)',
                         color: 'var(--input-text)',
@@ -454,7 +463,7 @@ const Conversas = () => {
                     <button
                       type="submit"
                       disabled={!newMessage.trim()}
-                      className="px-6 py-2 rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="px-4 md:px-6 py-2.5 md:py-2 rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px] min-w-[44px] flex items-center justify-center"
                       style={{
                         background: 'var(--button-bg)',
                         color: 'var(--button-text)'
@@ -466,10 +475,10 @@ const Conversas = () => {
                 </div>
               </>
             ) : (
-              <div className="flex-1 flex items-center justify-center">
-                <div className="text-center" style={{ color: 'var(--text-secondary)' }}>
-                  <span className="material-icons text-6xl mb-4 opacity-50">chat</span>
-                  <p className="text-lg">Selecione uma turma para começar a conversar</p>
+              <div className="flex-1 flex items-center justify-center p-4">
+                <div className="text-center max-w-md" style={{ color: 'var(--text-secondary)' }}>
+                  <span className="material-icons text-4xl md:text-6xl mb-4 opacity-50 block">chat</span>
+                  <p className="text-base md:text-lg">Selecione uma turma para começar a conversar</p>
                 </div>
               </div>
             )}
